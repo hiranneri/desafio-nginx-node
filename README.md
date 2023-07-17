@@ -15,7 +15,7 @@ O nginx irá chamar o node e o mesmo fará um cadastro no banco e como resposta 
 Clone o projeto
 
 ```bash
-  git clone https://link-para-o-projeto
+  git clone https://github.com/hiranneri/desafio-nginx-node.git
 ```
 
 Entre no diretório do projeto
@@ -33,6 +33,9 @@ Crie a imagem Docker (Build)
 Crie a imagem Docker
 
 ```bash
-  docker run --name desafio -p 8080:80 -p 3000:3000 hiranneri/desafio-nginx-node
+  docker run --name desafio --rm -d -p 8080:80 -p 3000:3000 hiranneri/desafio-nginx-node
 ```
 
+Disponível no Docker Hub
+
+  Em breve.
