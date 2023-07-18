@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express()
 const port = '3000'
+
+/* Toda a interação realizada com o banco de dados, será movida para outras
+    camadas especifícas de tratamento com o MySQL */
+
 var mysql = require('mysql2')
 const configConnection = {
     host: 'banco', // nome do serviço no docker-compose
@@ -9,9 +13,14 @@ const configConnection = {
     database: 'desafiodb',
 };
 
-var connection = mysql.createConnection(configConnection)
-
 app.get('/', (req,res) => {
+    var connection = mysql.createConnection(configConnection)
+    const sqlInsercao = "INSERT INTO pessoas (nome) VALUES ('Alfredo')"
+    
+    connection.query(sqlInsercao, function(err, results, fields){
+        if(err) throw err;
+    })
+
     const sqlConsulta = 'SELECT * FROM pessoas order by id desc'
     connection.query(sqlConsulta, function(err, results, fields){
         if(err) {
