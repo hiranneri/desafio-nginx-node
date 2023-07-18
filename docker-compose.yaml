@@ -1,6 +1,10 @@
 version: '3'
 
 services:
+
+  desafio-nginx-node:
+    image: hiranneri/desafio-nginx-node:latest
+
   nginx:
     build: 
         context: nginx
