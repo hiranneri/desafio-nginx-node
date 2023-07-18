@@ -24,16 +24,10 @@ Entre no diretório do projeto
   cd desafio-nginx-node
 ```
 
-Crie a imagem Docker (Build)
+Crie os containers com o docker compose
 
 ```bash
-  docker build -t hiranneri/desafio-nginx-node .
-```
-
-Crie a imagem Docker
-
-```bash
-  docker run --name desafio --rm -d -p 8080:80 -p 3000:3000 hiranneri/desafio-nginx-node
+  docker compose up --build -d
 ```
 
 Disponível no Docker Hub
