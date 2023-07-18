@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  nginx:
+    build: 
+        context: nginx
+        dockerfile: Dockerfile
+    container_name: nginx
+    volumes:
+      - ./nginx:/usr/src/nginx
+    networks:
+      - network
+    ports:
+      - "8080:80"  
+    depends_on:
+      - node 
+
+  node:
+    build: 
+      context: node
+      dockerfile: Dockerfile
+    container_name: app
+    volumes:
+      - ./node:/usr/src/app
+    networks:
+      - network  
+    tty: true
+    ports: 
+      - "3000:3000"
+    command: sh -c "npm install && node index.js && tail -f /dev/null" # executa os comandos e mantêm o contêiner em execução, aguardando indefinidamente.
+    depends_on:
+      - banco
+  
+  banco:
+    image: mysql  
+    command: --innodb-use-native-aio=0
+    container_name: mysql
+    restart: always
+    expose:
+      - "33060"
+    ports:
+      - "3306:33060"
+    tty: true
+    volumes:
+      - "mysql_volume:/var/lib/mysql"
+    environment:
+      - MYSQL_DATABASE=desafiodb
+      - MYSQL_ROOT_PASSWORD=secret
+    networks:
+      - network
+  
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  mysql_volume:
